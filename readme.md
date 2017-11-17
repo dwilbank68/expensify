@@ -6,3 +6,7 @@
 ### to start tests running
 
     npm test -- --watchAll
+    
+### build for production
+
+    npm run build:prod
