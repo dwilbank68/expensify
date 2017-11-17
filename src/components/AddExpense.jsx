@@ -28,7 +28,7 @@ class AddExpense extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addExpense: (expense) => dispatch(addExpense(expenseObj))
+        addExpense: (expenseObj) => dispatch(addExpense(expenseObj))
     }
 };
 
