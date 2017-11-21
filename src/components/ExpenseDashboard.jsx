@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExpenseList from './ExpenseList';
+import ExpensesSummary from './ExpensesSummary';
 
 import ExpenseListFilters from './ExpenseListFilters.jsx';
 
@@ -16,7 +17,7 @@ const ExpenseDashboard = ({whatever1, whatever2}) => {
 
     return (
         <div>
-            Dashboard Component
+            <ExpensesSummary/>
             <ExpenseListFilters/>
             <ExpenseList/>
         </div>
