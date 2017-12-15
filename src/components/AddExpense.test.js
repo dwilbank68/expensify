@@ -1,21 +1,21 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {AddExpense} from './AddExpense';
+import {AddExpense} from './AddExpense.jsx';
 
 import expenses from '../tests/fixtures/expenses';
 
-let addExpense, history, wrapper;
+let startAddExpense, history, wrapper;
 
 beforeEach(() => {
-    addExpense = jest.fn();
+    startAddExpense = jest.fn();
     history = {push: jest.fn()};
     wrapper = shallow(
-        <AddExpense addExpense={addExpense}
+        <AddExpense startAddExpense={startAddExpense}
                     history={history}/>
     );
 })
 
-test('should render AddExpense', () => {
+test('should render startAddExpense', () => {
     expect(wrapper).toMatchSnapshot();
 })
 
@@ -25,11 +25,11 @@ test('should handle onSubmit', () => {
         .prop('onSubmit')
         (expenses[1])
     expect(history.push).toHaveBeenLastCalledWith('/');
-    expect(addExpense).toHaveBeenLastCalledWith(expenses[1]);
+    expect(startAddExpense).toHaveBeenLastCalledWith(expenses[1]);
 })
 
 // test('should render error for invalid form data', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     expect(wrapper).toMatchSnapshot();
 //     wrapper
 //         .find('form')
@@ -47,7 +47,7 @@ test('should handle onSubmit', () => {
 // //      call 'preventDefault' on nothing
 //
 // test('should set description on input change', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     const value = 'New Descriptioni'
 //     wrapper
 //         .find('input').at(0)
@@ -56,7 +56,7 @@ test('should handle onSubmit', () => {
 // })
 //
 // test('should set note on textarea change', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     const value = 'New stuff in notes'
 //     wrapper
 //         .find('textarea').at(0)
@@ -65,7 +65,7 @@ test('should handle onSubmit', () => {
 // })
 //
 // test('should set amount if valid input', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     const value = '23.50';
 //     wrapper
 //         .find('input').at(1)
@@ -74,7 +74,7 @@ test('should handle onSubmit', () => {
 // })
 //
 // test('should not set amount if invalid input', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     const value = '12.122';
 //     wrapper
 //         .find('input').at(1)
@@ -84,7 +84,7 @@ test('should handle onSubmit', () => {
 //
 // test('should call onSubmit prop upon valid submission', () => {
 //     const onSubmitSpy = jest.fn();
-//     const wrapper = shallow(<AddExpense expense={expenses[0]}
+//     const wrapper = shallow(<startAddExpense expense={expenses[0]}
 //                                          onSubmit={onSubmitSpy}/>);
 //     wrapper
 //         .find('form')
@@ -102,7 +102,7 @@ test('should handle onSubmit', () => {
 // })
 //
 // test('should set createdAt on date change', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     const now = moment();
 //     wrapper
 //         .find('SingleDatePicker')
@@ -111,7 +111,7 @@ test('should handle onSubmit', () => {
 // })
 //
 // test('should set calendarFocused on focus change', () => {
-//     const wrapper = shallow(<AddExpense/>);
+//     const wrapper = shallow(<startAddExpense/>);
 //     wrapper
 //         .find('SingleDatePicker')
 //         .prop('onFocusChange')({focused:true});
