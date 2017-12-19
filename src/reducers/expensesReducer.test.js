@@ -63,3 +63,15 @@ test('should not edit expense without proper id', () => {
     const state = expensesReducer(expenses, action);
     expect(state).toEqual(expenses);
 })
+
+test('should set expenses', () => {
+    const action = {
+        type: 'SET_EXPENSES',
+        expenses: [expenses[1]]
+    };
+    const state = expensesReducer(expenses, action);
+    expect(state).toEqual([expenses[1]])
+})
+
+// .toBe        compare arrays - ensure they are same object, or check numbers
+// .toEqual     compare content of arrays, objects

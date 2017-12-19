@@ -1,13 +1,28 @@
 import {addExpense,
         startAddExpense,
         removeExpense,
-        editExpense} from './expensesActionGenerators';
+        editExpense,
+        setExpenses,
+        startSetExpenses} from './expensesActionGenerators';
 import expenses from '../tests/fixtures/expenses.js';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import database from '../firebase/firebase.js';
 
 const createMockStore = configureMockStore([thunk]);
+
+beforeEach((done) => {
+    const expensesData = {};
+    expenses.forEach(({id, description, note, amount, createdAt}) => {
+        expensesData[id] = {description, note, amount, createdAt};
+    })
+    database
+        .ref('expenses')
+        .set(expensesData)
+        .then(() => done());                                            // 1
+})
+
+// 1 -  without 'done', the tests might start before the db was populated
 
 test('should return REMOVE_EXPENSE action obj', () => {
     const action = removeExpense({id:'123abc'});
@@ -94,3 +109,26 @@ test('should add expense with defaults to database and store', (done) => {
 
 // 1 -  we can only chain 'then' because we RETURNed 'database.ref.push.then'
 //      in the action generator
+
+test('should return SET_EXPENSES action obj with data', () => {
+    const action = setExpenses(expenses);
+    expect(action).toEqual({
+        type:'SET_EXPENSES',
+        expenses: expenses
+    })
+})
+
+test('should fetch expenses from firebase', (done) => {
+    const store = createMockStore({});
+    store
+        .dispatch(startSetExpenses({}))
+        .then(() => {                                   // 1
+            const actions = store.getActions();
+
+            expect(actions[0]).toEqual({                // 2
+                type: 'SET_EXPENSES',
+                expenses
+            });
+            done();
+        });
+})

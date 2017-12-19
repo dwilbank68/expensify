@@ -26,6 +26,10 @@ export const startAddExpense =
         }
     }
 
+// 1 -  returned so that another promise can be chained for testing
+//      purposes. Test will therefore not run until after expense
+//      has been pushed onto 'expenses' and addExpense has been
+//      dispatched
 
 export const removeExpense =
     ({ id } = {}) => ({
@@ -39,7 +43,33 @@ export const editExpense =
         id, updates
     });
 
-// 1 -  returned so that another promise can be chained for testing
-//      purposes. Test will therefore not run until after expense
-//      has been pushed onto 'expenses' and addExpense has been
-//      dispatched
+export const setExpenses = (expenses) => {
+    return {
+        type: 'SET_EXPENSES',
+        expenses
+    }
+};
+
+export const startSetExpenses =
+    () => {
+        return (dispatch) => {
+            return (
+                database
+                    .ref('expenses')
+                    .once('value')
+                    .then(snapshot => {
+                        const expensesArray = [];
+                        snapshot.forEach(s => {
+                            expensesArray.push({
+                                id: s.key,
+                                ...s.val()
+                            })
+                        })
+                        console.log('------------------------------------------');
+                        console.log('expensesArray ',expensesArray);
+                        console.log('------------------------------------------');
+                        dispatch(setExpenses(expensesArray))
+                    })
+            )
+        }
+    };
