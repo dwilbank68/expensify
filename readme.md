@@ -1,6 +1,6 @@
 ### development
 
-    npm run servenpm 
+    npm run server
     npm run dev-server
 
 ### to start tests running

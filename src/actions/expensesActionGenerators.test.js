@@ -1,9 +1,8 @@
-import {addExpense,
-        startAddExpense,
-        removeExpense,
+import {addExpense, startAddExpense,
+        removeExpense, startRemoveExpense,
         editExpense,
-        setExpenses,
-        startSetExpenses} from './expensesActionGenerators';
+        setExpenses, startSetExpenses
+} from './expensesActionGenerators';
 import expenses from '../tests/fixtures/expenses.js';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -24,22 +23,9 @@ beforeEach((done) => {
 
 // 1 -  without 'done', the tests might start before the db was populated
 
-test('should return REMOVE_EXPENSE action obj', () => {
-    const action = removeExpense({id:'123abc'});
-    expect(action).toEqual({
-        type:'REMOVE_EXPENSE',
-        id: '123abc'
-    })
-})
 
-test('should return EDIT_EXPENSE action obj', () => {
-    const updatesObj = {note: 'new note stuff'};
-    const action = editExpense('123abc', updatesObj);
-    expect(action).toEqual({
-        type:'EDIT_EXPENSE',
-        id:'123abc', updates: updatesObj
-    })
-})
+
+//////////////////////// CREATE /////////////////////////
 
 test('should return ADD_EXPENSE action obj', () => {
     const expenseObj = expenses[2];
@@ -53,7 +39,7 @@ test('should return ADD_EXPENSE action obj', () => {
 test('should add expense to database and store', (done) => {
     const store = createMockStore({});
     const expenseData = {
-        description: 'Mouse', amount: 3000, note: 'better note' ,createdAt: 1000
+        description: 'Mouse', amount: 3000, note: 'sqweek' , createdAt: 1000
     }
     store
         .dispatch(startAddExpense(expenseData))
@@ -110,6 +96,8 @@ test('should add expense with defaults to database and store', (done) => {
 // 1 -  we can only chain 'then' because we RETURNed 'database.ref.push.then'
 //      in the action generator
 
+/////////////////////////////// READ ////////////////////////////
+
 test('should return SET_EXPENSES action obj with data', () => {
     const action = setExpenses(expenses);
     expect(action).toEqual({
@@ -131,4 +119,52 @@ test('should fetch expenses from firebase', (done) => {
             });
             done();
         });
+})
+
+////////////////////// UPDATE //////////////////////////
+
+test('should return EDIT_EXPENSE action obj', () => {
+    const updatesObj = {note: 'new note stuff'};
+    const action = editExpense('123abc', updatesObj);
+    expect(action).toEqual({
+        type:'EDIT_EXPENSE',
+        id:'123abc', updates: updatesObj
+    })
+})
+
+///////////////////// DELETE ///////////////////////
+
+test('should remove expenses from firebase', (done) => {
+    const store = createMockStore({});
+    const id = expenses[2].id;
+    store
+        .dispatch(startRemoveExpense({id}))
+        .then(() => {                                   // 1
+            const actions = store.getActions();
+            expect(actions[0]).toEqual({                // 2
+                type: 'REMOVE_EXPENSE',
+                id
+            });
+            return database
+                        .ref(`expenses/${id}`)
+                        .once('value')
+        })
+        .then(snapshot => {
+            expect(snapshot.val()).toBeFalsy()
+            done();
+        })
+
+
+
+})
+
+// .toBe        compare arrays - ensure they are same object, or check numbers
+// .toEqual     compare content of arrays, objects
+
+test('should return REMOVE_EXPENSE action obj', () => {
+    const action = removeExpense({id:'123abc'});
+    expect(action).toEqual({
+        type:'REMOVE_EXPENSE',
+        id: '123abc'
+    })
 })

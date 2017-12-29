@@ -31,11 +31,28 @@ export const startAddExpense =
 //      has been pushed onto 'expenses' and addExpense has been
 //      dispatched
 
+////////////////////////////// Delete //////////////////////////////
+
 export const removeExpense =
     ({ id } = {}) => ({
         type: 'REMOVE_EXPENSE',
         id
     });
+
+export const startRemoveExpense =
+    ({id}) => {
+        return (dispatch) => {
+            return (
+                database
+                    .ref('expenses')
+                    .child(id)
+                    .remove()
+                    .then(() => {
+                        dispatch(removeExpense({id}))
+                    })
+            )
+        }
+    }
 
 export const editExpense =
     (id, updates) => ({
@@ -65,9 +82,6 @@ export const startSetExpenses =
                                 ...s.val()
                             })
                         })
-                        console.log('------------------------------------------');
-                        console.log('expensesArray ',expensesArray);
-                        console.log('------------------------------------------');
                         dispatch(setExpenses(expensesArray))
                     })
             )
