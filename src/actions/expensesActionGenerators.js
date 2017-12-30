@@ -1,6 +1,9 @@
 import uuid from 'uuid';
 import database from '../firebase/firebase.js';
 
+////////////////////////////// Create //////////////////////////////
+
+
 export const addExpense =
     (expense) => ({
         type: 'ADD_EXPENSE',
@@ -31,34 +34,7 @@ export const startAddExpense =
 //      has been pushed onto 'expenses' and addExpense has been
 //      dispatched
 
-////////////////////////////// Delete //////////////////////////////
-
-export const removeExpense =
-    ({ id } = {}) => ({
-        type: 'REMOVE_EXPENSE',
-        id
-    });
-
-export const startRemoveExpense =
-    ({id}) => {
-        return (dispatch) => {
-            return (
-                database
-                    .ref('expenses')
-                    .child(id)
-                    .remove()
-                    .then(() => {
-                        dispatch(removeExpense({id}))
-                    })
-            )
-        }
-    }
-
-export const editExpense =
-    (id, updates) => ({
-        type: 'EDIT_EXPENSE',
-        id, updates
-    });
+///////////////////////// READ ////////////////////////////
 
 export const setExpenses = (expenses) => {
     return {
@@ -87,3 +63,51 @@ export const startSetExpenses =
             )
         }
     };
+
+////////////////////////////// Update //////////////////////////////
+
+export const editExpense =
+    (id, updates) => ({
+        type: 'EDIT_EXPENSE',
+        id, updates
+    });
+
+export const startEditExpense =
+    (id, updates) => {
+        return (dispatch) => {
+            return (
+                database
+                    .ref('expenses')            // 1
+                    .child(id)
+                    .update(updates)
+                    .then(() => {
+                        dispatch(editExpense(id, updates))
+                    })
+            )
+        }
+    }
+
+// 1 -  or ref(`expenses/${id}`)
+
+////////////////////////////// Delete //////////////////////////////
+
+export const removeExpense =
+    ({ id } = {}) => ({
+        type: 'REMOVE_EXPENSE',
+        id
+    });
+
+export const startRemoveExpense =
+    ({id}) => {
+        return (dispatch) => {
+            return (
+                database
+                    .ref('expenses')
+                    .child(id)
+                    .remove()
+                    .then(() => {
+                        dispatch(removeExpense({id}))
+                    })
+            )
+        }
+    }

@@ -1,6 +1,6 @@
 import {addExpense, startAddExpense,
         removeExpense, startRemoveExpense,
-        editExpense,
+        editExpense, startEditExpense,
         setExpenses, startSetExpenses
 } from './expensesActionGenerators';
 import expenses from '../tests/fixtures/expenses.js';
@@ -132,6 +132,35 @@ test('should return EDIT_EXPENSE action obj', () => {
     })
 })
 
+test('should edit expense from firebase', (done) => {
+    const store = createMockStore({});
+    const id = expenses[2].id;
+    const updates = {
+        description: 'renty',
+        amount: 666
+    }
+    store
+        .dispatch(startEditExpense(id, updates))
+        .then(() => {                                   // 1
+            const actions = store.getActions();
+            expect(actions[0]).toEqual({                // 2
+                type: 'EDIT_EXPENSE',
+                id,
+                updates
+            });
+            return database
+                .ref(`expenses/${id}`)
+                .once('value')
+        })
+        .then(snapshot => {
+            expect(snapshot.val()).toEqual({
+                amount: 666, description: 'renty',
+                note:'', createdAt: 345600000
+            })
+            done();
+        })
+})
+
 ///////////////////// DELETE ///////////////////////
 
 test('should remove expenses from firebase', (done) => {
@@ -150,12 +179,9 @@ test('should remove expenses from firebase', (done) => {
                         .once('value')
         })
         .then(snapshot => {
-            expect(snapshot.val()).toBeFalsy()
+            expect(snapshot.val()).toBeFalsy();
             done();
         })
-
-
-
 })
 
 // .toBe        compare arrays - ensure they are same object, or check numbers
