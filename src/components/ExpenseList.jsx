@@ -8,9 +8,6 @@ import getVisibleExpenses from '../selectors/expenseFunctions';
 export
 const ExpenseList = ({expenses}) => {
 
-    // no lifecycle methods
-    // no refs
-
     const renderExpenses = () => {
 
         return expenses.length === 0 ?

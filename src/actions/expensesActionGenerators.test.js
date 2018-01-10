@@ -103,7 +103,7 @@ test('should return SET_EXPENSES action obj with data', () => {
     expect(action).toEqual({
         type:'SET_EXPENSES',
         expenses: expenses
-    })
+    });
 })
 
 test('should fetch expenses from firebase', (done) => {
@@ -129,7 +129,7 @@ test('should return EDIT_EXPENSE action obj', () => {
     expect(action).toEqual({
         type:'EDIT_EXPENSE',
         id:'123abc', updates: updatesObj
-    })
+    });
 })
 
 test('should edit expense from firebase', (done) => {
@@ -158,7 +158,7 @@ test('should edit expense from firebase', (done) => {
                 note:'', createdAt: 345600000
             })
             done();
-        })
+        });
 })
 
 ///////////////////// DELETE ///////////////////////
@@ -181,7 +181,7 @@ test('should remove expenses from firebase', (done) => {
         .then(snapshot => {
             expect(snapshot.val()).toBeFalsy();
             done();
-        })
+        });
 })
 
 // .toBe        compare arrays - ensure they are same object, or check numbers

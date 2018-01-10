@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {  NavLink} from 'react-router-dom';
-
+import {connect} from 'react-redux';
+import {NavLink} from 'react-router-dom';
+import {startLogoutAG} from "../actions/authActionGenerators.js";
 
 // import Header from './Header.jsx';
 // const Header = (props) => {
-const Header = ({whatever1, whatever2}) => {
+export
+const Header = ({startLogout}) => {
     // no lifecycle methods
     // no refs
 
@@ -16,36 +18,23 @@ const Header = ({whatever1, whatever2}) => {
     return (
         <div>
             <h1>Expensify</h1>
+            <NavLink to="/dashboard" exact={true} activeClassName="is-active">
+                Dashboard
+            </NavLink>
             <NavLink to="/create" activeClassName="is-active">
                 create
             </NavLink>
-            <NavLink to="/edit" activeClassName="is-active">
-                edit
-            </NavLink>
-            <NavLink to="/help" activeClassName="is-active">
-                help
-            </NavLink>
-            <NavLink to="/" exact={true} activeClassName="is-active">
-                home
-            </NavLink>
+            <button onClick={startLogout}>
+                Logout
+            </button>
         </div>
     );
 };
 
 
-// Header.defaultProps = {};
-// Header.propTypes = {
-//     name:        PropTypes.string.isRequired,
-//     hndleIptChg: PropTypes.func,
-//     id:          PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
-//     message:     PropTypes.shape({ title: PropTypes.string, text: PropTypes.string }).isRequired,
-//     comments:    PropTypes.arrayOf(React.PropTypes.object),
-//     todos:       PropTypes.array,
-//     isComplete:  PropTypes.bool,
-//     id:          PropTypes.number,
-//     date:        PropTypes.instanceOf(Date)
-// };
-//
-// PropTypes -> array, bool, func, number, object, string, symbol
+const mapDispatchToProps = (dispatch) => ({
+    startLogout: () => dispatch(startLogoutAG())
+})
 
-export default Header;
+
+export default connect(undefined, mapDispatchToProps)(Header);

@@ -7,14 +7,7 @@ import ExpenseListFilters from './ExpenseListFilters.jsx';
 
 // import ExpenseDashboard from './ExpenseDashboard.jsx';
 // const ExpenseDashboard = (props) => {
-const ExpenseDashboard = ({whatever1, whatever2}) => {
-    // no lifecycle methods
-    // no refs
-
-    const methodName = (e) => {
-        //
-    }
-
+const ExpenseDashboard = () => {
     return (
         <div>
             <ExpensesSummary/>

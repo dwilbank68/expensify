@@ -77,8 +77,7 @@ test('should call onSubmit prop upon valid submission', () => {
     wrapper
         .find('form')
         .simulate('submit', {
-            preventDefault: () => {
-            }
+            preventDefault: () => {}
         });
     expect(wrapper.state('error')).toBe('');
     expect(onSubmitSpy).toHaveBeenLastCalledWith({

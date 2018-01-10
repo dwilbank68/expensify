@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 const getVisibleExpenses = (expenses, {text, sortBy, startDate, endDate}) => {
+
     return expenses.filter( exp => {
         const createdAtMoment = moment(exp.createdAt);
         const startDateMatch =  startDate   ? startDate.isSameOrBefore(createdAtMoment, 'day') : true;

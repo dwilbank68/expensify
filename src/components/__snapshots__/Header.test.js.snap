@@ -8,31 +8,22 @@ exports[`should render Header 1`] = `
   <NavLink
     activeClassName="is-active"
     ariaCurrent="true"
+    exact={true}
+    to="/"
+  >
+    Dashboard
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    ariaCurrent="true"
     to="/create"
   >
     create
   </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    ariaCurrent="true"
-    to="/edit"
+  <button
+    onClick={[Function]}
   >
-    edit
-  </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    ariaCurrent="true"
-    to="/help"
-  >
-    help
-  </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    ariaCurrent="true"
-    exact={true}
-    to="/"
-  >
-    home
-  </NavLink>
+    Logout
+  </button>
 </div>
 `;
