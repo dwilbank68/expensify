@@ -18,7 +18,7 @@ const Header = ({startLogout}) => {
     return (
         <div>
             <h1>Expensify</h1>
-            <NavLink to="/dashboard" exact={true} activeClassName="is-active">
+            <NavLink to="/dashboard" activeClassName="is-active">
                 Dashboard
             </NavLink>
             <NavLink to="/create" activeClassName="is-active">

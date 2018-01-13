@@ -3,7 +3,6 @@ import database from '../firebase/firebase.js';
 
 ////////////////////////////// Create //////////////////////////////
 
-
 export const addExpense =
     (expense) => ({
         type: 'ADD_EXPENSE',
@@ -12,12 +11,13 @@ export const addExpense =
 
 export const startAddExpense =
     (expenseData={}) => {
-        return (dispatch) => {
+        return (dispatch, getState) => {
+            const uid = getState().auth.uid;
             const {description='', note='', amount=0, createdAt=0} = expenseData;
             const expense = {description, note, amount, createdAt};
             return (                                        // 1
                 database
-                    .ref('expenses')
+                    .ref(`users/${uid}/expenses`)
                     .push(expense)
                     .then(ref => {
                         dispatch(addExpense({
@@ -45,10 +45,11 @@ export const setExpenses = (expenses) => {
 
 export const startSetExpenses =
     () => {
-        return (dispatch) => {
+        return (dispatch, getState) => {
+            const uid = getState().auth.uid;
             return (
                 database
-                    .ref('expenses')
+                    .ref(`users/${uid}/expenses`)
                     .once('value')
                     .then(snapshot => {
                         const expensesArray = [];
@@ -74,10 +75,11 @@ export const editExpense =
 
 export const startEditExpense =
     (id, updates) => {
-        return (dispatch) => {
+        return (dispatch, getState) => {
+            const uid = getState().auth.uid;
             return (
                 database
-                    .ref('expenses')            // 1
+                    .ref(`users/${uid}/expenses`)            // 1
                     .child(id)
                     .update(updates)
                     .then(() => {
@@ -99,10 +101,11 @@ export const removeExpense =
 
 export const startRemoveExpense =
     ({id}) => {
-        return (dispatch) => {
+        return (dispatch, getState) => {
+            const uid = getState().auth.uid;
             return (
                 database
-                    .ref('expenses')
+                    .ref(`users/${uid}/expenses`)
                     .child(id)
                     .remove()
                     .then(() => {
