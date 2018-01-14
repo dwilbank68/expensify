@@ -8,7 +8,7 @@ export
 const Login = ({startLogin}) => {
 
     return (
-        <div className="login">
+        <div className="box-layout">
             <button onClick={startLogin}>
                 Login
             </button>
