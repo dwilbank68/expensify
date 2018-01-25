@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+
 import totalExpenses from '../selectors/expenseTotal';
 import getVisibleExpenses from '../selectors/expenseFunctions';
 
@@ -16,11 +18,19 @@ const ExpensesSummary = ({expenseCount, expenseTotal}) => {
 
     return (
         <div className="expenses-summary">
-            <pre>
-                <h1>
-                    Viewing {expenseCount} {units} totalling {expenseTotalFormatted}
-                </h1>
-            </pre>
+            <div className="page-header">
+                <div className="content-container">
+                    <h1 className="page-header__title">
+                        Viewing <span>{expenseCount}</span> {units} totalling <span>{expenseTotalFormatted}</span>
+                    </h1>
+                    <div className="page-header__actions">
+                        <Link   to="/create"
+                                className="button">
+                            Add Expense
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

@@ -4,16 +4,39 @@ exports[`should render ExpensesSummary with 1 expense 1`] = `
 <div
   className="expenses-summary"
 >
-  <pre>
-    <h1>
-      Viewing 
-      1
-       
-      expense
-       totalling 
-      $95.00
-    </h1>
-  </pre>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h1
+        className="page-header__title"
+      >
+        Viewing 
+        <span>
+          1
+        </span>
+         
+        expense
+         totalling 
+        <span>
+          $95.00
+        </span>
+      </h1>
+      <div
+        className="page-header__actions"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/create"
+        >
+          Add Expense
+        </Link>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -21,15 +44,38 @@ exports[`should render ExpensesSummary with 2 expenses 1`] = `
 <div
   className="expenses-summary"
 >
-  <pre>
-    <h1>
-      Viewing 
-      2
-       
-      expenses
-       totalling 
-      $195.00
-    </h1>
-  </pre>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h1
+        className="page-header__title"
+      >
+        Viewing 
+        <span>
+          2
+        </span>
+         
+        expenses
+         totalling 
+        <span>
+          $195.00
+        </span>
+      </h1>
+      <div
+        className="page-header__actions"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/create"
+        >
+          Add Expense
+        </Link>
+      </div>
+    </div>
+  </div>
 </div>
 `;

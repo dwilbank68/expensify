@@ -11,15 +11,26 @@ const ExpenseList = ({expenses}) => {
     const renderExpenses = () => {
 
         return expenses.length === 0 ?
-            <p>No expenses</p> :
+            <div className="list-item--message">
+                <span>
+                    No expenses
+                </span>
+            </div> :
             expenses.map((e) => {
                 return <ExpenseListItem {...e} key={e.id}/>
             })
     }
 
     return (
-        <div className="expense-list">
-            {renderExpenses()}
+        <div className="content-container">
+            <div className="list-header">
+                <div className="show-for-mobile">Expenses</div>
+                <div className="show-for-desktop">Expense</div>
+                <div className="show-for-desktop">Amount</div>
+            </div>
+            <div className="list-body">
+                {renderExpenses()}
+            </div>
         </div>
     );
 };

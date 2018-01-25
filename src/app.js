@@ -8,6 +8,7 @@ import configureStore from './store/configureStore';
 
 import {startSetExpenses} from './actions/expensesActionGenerators';
 import {loginAG, logoutAG} from './actions/authActionGenerators';
+import LoadingPage from './components/LoadingPage.jsx';
 
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
@@ -32,7 +33,7 @@ const renderApp = () => {
     }
 }
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render(<LoadingPage/>, document.getElementById('app'));
 
 firebase
     .auth()

@@ -1,0 +1,13 @@
+.show-for-mobile {
+    @media (min-width: $desktop-breakpoint) {
+        display: none;
+    }
+    // make 'Expenses' disappear when page wider than breakpoint
+}
+
+.show-for-desktop {
+    @media (max-width: $desktop-breakpoint - .01rem) {
+        display: none;
+    }
+    // make 'Expense & Amount' disappear when page smaller than breakpoint
+}
